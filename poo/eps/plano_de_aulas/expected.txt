@@ -1,0 +1,55 @@
+--- Plano 1 ---
+- [Teorica]: Introducao
+- [Prova]: P1
+- [Teorica]: POO
+- [Teorica]: Revisao
+- [Prova]: P2
+2.0 x P1 + 3.0 x P2
+---------------
+
+--- Plano 2(a) ---
+- [Teorica]: Introducao (1h)
+- [Prova]: P1 (3h)
+- [Teorica]: POO (5h)
+- [Teorica]: Revisao (2h)
+---------------
+
+--- Plano 2(b) ---
+- [Teorica]: Introducao (1h)
+- [Prova]: P1 (3h)
+- [Teorica]: POO (5h)
+- [Teorica]: Revisao (2h)
+- [Prova]: P2 (2h)
+---------------
+
+--- Plano 3(a) ---
+- [Teorica]: Introducao (1h)
+- [Teorica]: POO (5h)
+- [Teorica]: Revisao (2h)
+---------------
+
+--- Plano 3(b) ---
+- [Teorica]: Introducao (1h)
+- [Teorica]: POO (5h)
+- [Teorica]: Revisao (2h)
+- [Prova]: P1 (1h)
+- [Prova]: P2 (1h)
+---------------
+
+--- Plano 4(a) ---
+- [Prova]: P1 (1h)
+- [Prova]: P2 (2h)
+- [Prova]: P3 (3h)
+- [Teorica]: Revisao (4h)
+---------------
+
+--- Plano 4(b) ---
+- [Teorica]: Revisao (4h)
+---------------
+
+Comparar plano3 e plano4: 1
+Comparar plano3 e plano4: 1
+Comparar plano4 e plano3: -1
+Comparar plano4 e plano3: -1
+Comparar plano4 e plano4: 0
+Comparar plano4 e plano4: 0

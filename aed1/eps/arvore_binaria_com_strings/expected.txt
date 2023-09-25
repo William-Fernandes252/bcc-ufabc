@@ -1,0 +1,20 @@
+Inserir [dados]
+dados
+dados
+Inserir [algoritmos]
+dados algoritmos
+algoritmos dados
+Inserir [estruturas]
+dados algoritmos estruturas
+algoritmos estruturas dados
+Inserir [professor]
+dados algoritmos estruturas professor
+algoritmos professor estruturas dados
+Remover [estruturas]
+dados algoritmos professor
+algoritmos professor dados
+Remover [algoritmos]
+dados professor
+professor dados
+Busca NAO ENCONTRADO: [estruturas]
+Busca OK: [professor]

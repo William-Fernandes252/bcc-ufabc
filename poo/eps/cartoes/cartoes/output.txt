@@ -1,0 +1,13 @@
+Cartao(1) instanciado como CartaoLimitado
+Cartao(2) instanciado como CartaoLimitado
+Cartao(2).pagarComCredito(500) = false
+Cartao(2).pagarComCredito(50) = true
+Cartao(1).pagarComCredito(200) = true
+Cartao(2).pagarComCredito(100) = true
+Cartao(1).verificarExtrato = 0
+Cartao(2).verificarExtrato = 0
+Cartao(1).quitarCredito(30)
+Cartao(1).pagarComCredito(100) = false
+Cartao(1).pagarComCredito(20) = true
+Cartao(1).verificarExtrato = -30
+Cartao(2).verificarExtrato = 0

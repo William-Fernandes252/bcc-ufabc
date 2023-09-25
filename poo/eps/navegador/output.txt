@@ -1,0 +1,69 @@
+Classe AbaNavegador: abstract = true
+Classe AbaNavegador - metodo getTitulo: abstract = false
+Classe AbaNavegador - metodo getTipo: abstract = true
+Classe AbaBuscador - subclasse de AbaNavegador: true
+Classe AbaRedeSocial - subclasse de AbaNavegador: true
+Objeto Navegador instanciado (limiteAbas=[3])
+(Navegador).abrirAba(tipo=1, titulo=Buscador_A)
+A aba retornada foi armazenada no indice 0
+(Aba 0).getTipo()
+Retorno de (Aba 0).getTipo() = [Buscador]
+(Navegador).abrirAba(tipo=2, titulo=RedeSocial_A)
+A aba retornada foi armazenada no indice 1
+(Aba 1).getTipo()
+Retorno de (Aba 1).getTipo() = [RedeSocial]
+(Navegador).abrirAba(tipo=1, titulo=Buscador_B)
+A aba retornada foi armazenada no indice 2
+(Aba 2).getTipo()
+Retorno de (Aba 2).getTipo() = [Buscador]
+(Aba 0).buscar(programacao)
+(Aba 2).buscar(orientada)
+(Aba 0).buscar(objetos)
+(Aba 1).postar(post_1)
+(Aba 1).postar(post_2)
+(Aba 0).buscar(testes)
+(Navegador).getAbas()
+-- Buscador Buscador_A
+-- RedeSocial RedeSocial_A
+-- Buscador Buscador_B
+(Navegador).getHistorico()
+-- Busca: programacao
+-- Busca: orientada
+-- Busca: objetos
+-- Post: post_1
+-- Post: post_2
+-- Busca: testes
+(Navegador).fecharAba(indice=1)
+(Navegador).getAbas()
+-- Buscador Buscador_A
+-- Buscador Buscador_B
+(Navegador).getHistorico()
+-- Busca: programacao
+-- Busca: orientada
+-- Busca: objetos
+-- Post: post_1
+-- Post: post_2
+-- Busca: testes
+(Navegador).abrirAba(tipo=2, titulo=RedeSocial_B)
+A aba retornada foi armazenada no indice 3
+(Aba 3).getTipo()
+Retorno de (Aba 3).getTipo() = [RedeSocial]
+(Aba 3).postar(post_2)
+(Aba 3).postar(post_3)
+(Aba 3).postar(post_4)
+(Aba 2).buscar(navegador)
+(Navegador).fecharAba(indice=0)
+(Navegador).getAbas()
+-- RedeSocial RedeSocial_B
+-- Buscador Buscador_B
+(Navegador).getHistorico()
+-- Busca: programacao
+-- Busca: orientada
+-- Busca: objetos
+-- Post: post_1
+-- Post: post_2
+-- Busca: testes
+-- Post: post_2
+-- Post: post_3
+-- Post: post_4
+-- Busca: navegador

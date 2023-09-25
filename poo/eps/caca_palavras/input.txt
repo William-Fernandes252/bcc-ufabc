@@ -1,0 +1,8 @@
+5 6
+Y E X W B I
+R V T P D F
+O T T S F I
+C I K M E P
+G C P W V T
+1
+TESTE
