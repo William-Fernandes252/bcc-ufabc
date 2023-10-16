@@ -28,11 +28,6 @@ void apagarArvore(no *raiz)
 
 void adicionarPalavra(char *palavra, no *raiz)
 {
-    // IMPLEMENTAR !!!
-    // Dica 1: Use um laco iterativo de 0 ate strlen(palavra)
-    // Dica 2: Criar o no com a funcao criarNo (caso nao existir)
-    // Dica 3: Utilize a macro CHAR_TO_INDEX (ver trie.h) para converter o caractere para o indice filho
-    // Dica 4: Nao esqueca de mudar o tipo para 'P' no ultimo noh que representa o ultimo caractere
     no *aux = raiz;
     for (int i = 0, len = strlen(palavra); i < len; i++)
     {
@@ -45,17 +40,11 @@ void adicionarPalavra(char *palavra, no *raiz)
     aux->tipo = 'P';
 }
 
-int buscaPalavra(char *palavra, no *raiz)
+no *ultimoNoPalavra(char *palavra, no *raiz)
 {
-    // IMPLEMENTAR !!!
-    // Dica 1: Funcao similar ao adicionarPalavra
-    // Dica 2: Se o ultimo noh que representa o ultimo caractere for do tipo 'I', a palavra nao existe
-    // IMPORTANTE:
-    //   retorne 0 se a palavra nao exite
-    //   retorne 1 se a palavra existir
     if (raiz == NULL)
     {
-        return 0;
+        return NULL;
     }
 
     no *aux = raiz;
@@ -63,11 +52,23 @@ int buscaPalavra(char *palavra, no *raiz)
     {
         if (aux->filho[CHAR_TO_INDEX(palavra[i])] == NULL)
         {
-            return 0;
+            return NULL;
         }
         aux = aux->filho[CHAR_TO_INDEX(palavra[i])];
     }
-    return aux->tipo == 'P';
+
+    return aux;
+}
+
+int buscaPalavra(char *palavra, no *raiz)
+{
+    if (raiz == NULL)
+    {
+        return 0;
+    }
+
+    no *ultimoNo = ultimoNoPalavra(palavra, raiz);
+    return ultimoNo != NULL && ultimoNo->tipo == 'P';
 }
 
 int numeroDeNos(no *r)
@@ -88,15 +89,18 @@ int numeroDeNos(no *r)
 
 int numeroDePalavras(no *r)
 {
-    if (r == NULL)
+    int n = 0;
+    if (r->tipo == 'P')
     {
-        return 0;
+        n += 1;
     }
 
-    int n = 0;
     for (int i = 0; i < TAMANHO_ALFABETO; i++)
     {
-        n += numeroDePalavras(r->filho[i]) + (int)(r->tipo == 'P');
+        if (r->filho[i] != NULL)
+        {
+            n += numeroDePalavras(r->filho[i]);
+        }
     }
 
     return n;
@@ -112,7 +116,7 @@ int altura(no *r)
     int alturaMaiorSubArvore = 0, alturaSubArvore;
     for (int i = 0; i < TAMANHO_ALFABETO; i++)
     {
-        alturaSubArvore = altura(r->filho[i]);
+        alturaSubArvore = r->filho[i] != NULL ? altura(r->filho[i]) + 1 : 0;
         if (alturaSubArvore > alturaMaiorSubArvore)
         {
             alturaMaiorSubArvore = alturaSubArvore;
@@ -122,51 +126,63 @@ int altura(no *r)
     return alturaMaiorSubArvore;
 }
 
-int contagemFilhos(no *c)
+int possuiFilhos(no *r)
 {
-    if (c == NULL)
-    {
-        return -1;
-    }
-
-    int contagem = 0;
     for (int i = 0; i < TAMANHO_ALFABETO; i++)
     {
-        if (c->filho[i] != NULL)
+        if (r->filho[i] != NULL)
         {
-            contagem += 1;
+            return 1;
         }
     }
-
-    return contagem;
+    return 0;
 }
 
-void removerPalavra(char *palavra, no *raiz)
+void deletarNos(no *r, char *palavra, int profundidade, int tamanhoPalavra)
 {
-    // IMPLEMENTAR !!!
-    // Nota: Esta funcao eh a mais elaborada. Recomendo criar funcoes auxiliares e utilizar recursao
-    if (raiz == NULL)
+    if (profundidade == tamanhoPalavra)
     {
         return;
     }
 
-    no *aux = raiz;
-    for (int i = 0, len = strlen(palavra); i < len; i++)
+    deletarNos(r->filho[CHAR_TO_INDEX(palavra[profundidade])], palavra, profundidade + 1, tamanhoPalavra);
+    if (!buscaPalavra(palavra, r->filho[CHAR_TO_INDEX(palavra[profundidade])]) &&
+        possuiFilhos(r->filho[CHAR_TO_INDEX(palavra[profundidade])]))
     {
-        if (buscaPalavra(&palavra[i], aux))
-        {
-            aux = aux->filho[CHAR_TO_INDEX(palavra[i])];
-            if (strlen(&palavra[i]) > 1)
-            {
-                removerPalavra(&palavra[i], aux);
-            }
-            else
-            {
-                if (contagemFilhos(aux) == 0)
-                {
-                    apagarArvore(aux);
-                }
-            }
-        }
+        free(r->filho[CHAR_TO_INDEX(palavra[profundidade])]);
+        r->filho[CHAR_TO_INDEX(palavra[profundidade])] = NULL;
     }
+}
+
+int removerRecursivo(no *raiz, char *palavra, int profundidade)
+{
+    if (profundidade == strlen(palavra))
+    {
+        if (raiz->tipo == 'P')
+        {
+            raiz->tipo = 'I';
+            return !possuiFilhos(raiz);
+        }
+        return 0;
+    }
+
+    if (!raiz->filho[CHAR_TO_INDEX(palavra[profundidade])])
+    {
+        return 0;
+    }
+
+    int ret = removerRecursivo(raiz->filho[CHAR_TO_INDEX(palavra[profundidade])], palavra, profundidade + 1);
+    if (ret)
+    {
+        free(raiz->filho[CHAR_TO_INDEX(palavra[profundidade])]);
+        raiz->filho[CHAR_TO_INDEX(palavra[profundidade])] = NULL;
+        return !possuiFilhos(raiz);
+    }
+
+    return 0;
+}
+
+void removerPalavra(char *palavra, no *raiz)
+{
+    removerRecursivo(raiz, palavra, 0);
 }
